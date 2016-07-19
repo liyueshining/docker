@@ -2,9 +2,11 @@
 
 ### Set Proxy if necessary
  1. Add something followed into file /etc/profile
-     `export http_proxy=http://proxysh.domain.com.cn:80
+     export http_proxy=http://proxysh.domain.com.cn:80
+
      export https_proxy=$http_proxy
-     export no_proxy=10.0.0.0/8,.domain.com.cn,.domain.intra,localhost `       
+     
+     export no_proxy=10.0.0.0/8,.domain.com.cn,.domain.intra,localhost       
  2. make file validate
     source /etc/profile        
  3. validate your username and password in browser
