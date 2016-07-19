@@ -3,7 +3,7 @@
 ### Set Proxy if necessary
  1. Add something followed into file /etc/profile
      
-    export http_proxy=http://proxysh.domain.com.cn:80
+         export http_proxy=http://proxysh.domain.com.cn:80
 
      export https_proxy=$http_proxy
      
