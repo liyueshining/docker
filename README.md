@@ -7,41 +7,53 @@
          export https_proxy=$http_proxy
          export no_proxy=10.0.0.0/8,.domain.com.cn,.domain.intra,localhost       
  2. make file validate
+ 
          source /etc/profile        
  3. validate your username and password in browser
 
 ### Install
  1. execute cmd as follows to intall the latest docker
+ 
          curl -sSL https://get.docker.com/ | sh        
  2. check docker version
+ 
          docker -v       
  3. Set Proxy if necessary when downloading or searching image from DockerHub
+ 
          add proxy info into docker file /etc/default/docker
         
 ### Common Commands
  1. check docker images installed
+ 
          docker images
  2. delete docker iamge
+ 
          docker rmi -f imageName
         
  3. setup container
+ 
          docker run -dit -p 5000(hostport):5000(containerport) --name containerName -v /home/share:/mnt imageName [/bin/bash]
         
  4. into container if run by -d
+ 
          docker exec -it containerName(id) /bin/bash
          docker attach containerName(id)
     
          docker start containerName
  5. delete container
+ 
          docker rm -f containerName
         
  6. export image tar from image
+ 
          docker save imageName > imageName.tar
  
  7. import image from image tar
+ 
          docker load imageName.tar
         
  8. create new docker image from base image, example is as follows:
+ 
          比如要在Ubuntu 14.04基础镜像中安装netopeer后，保存为新的镜像，如下：
          1,启动基础镜像  sudo docker run -t -i ubuntu /bin/bash
          2,进入容器里，安装netopeer，docker attach ubuntu，install netopeer，
@@ -50,6 +62,7 @@
          5,创建新镜像，docker commit containerID newImageName
         
  9. create new docker image by dockerfile, example is as folloews:
+ 
          编写 Dockerfile
          docker build -t newImageName .
         
