@@ -30,9 +30,9 @@
  
          docker rmi -f imageName
         
- 3. setup container
+ 3. setup container with parameters -e
  
-         docker run -dit -p 5000(hostport):5000(containerport) --name containerName -v /home/share:/mnt imageName [/bin/bash]
+         docker run -dit -p 5000(hostport):5000(containerport) --name containerName -e "SERVICE_12003_CHECK_TTL=60s" -v /home/share:/mnt imageName [/bin/bash]
         
  4. into container if run by -d
  
