@@ -65,7 +65,7 @@
  
          编写 Dockerfile
          ```bash
-         docker build -t newImageName .
+          docker build -t newImageName .
         ```
         
         ```bash
@@ -82,10 +82,12 @@
  10. push image to private registry, example is as folloews:
  
          1. tag
+         
             ```bash
                docker tag imageId rd-server:5000/imageName
             ```
          2. push
+         
            ```bash
                docker push rd-server:5000/imageName
             ```
