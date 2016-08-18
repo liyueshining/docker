@@ -50,7 +50,7 @@
  
  7. import image from image tar
  
-         docker load imageName.tar
+         docker load -i imageName.tar
         
  8. create new docker image from base image, example is as follows:
  
