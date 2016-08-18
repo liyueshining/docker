@@ -64,7 +64,7 @@
  9. create new docker image by dockerfile, example is as folloews:
  
          编写 Dockerfile
-         ```shell
+         ```bash
          docker build -t newImageName .
         ```
         
@@ -82,10 +82,10 @@
  10. push image to private registry, example is as folloews:
  
          1. tag
-            ```shell
+            ```bash
                docker tag imageId rd-server:5000/imageName
             ```
          2. push
-           ```shell
+           ```bash
                docker push rd-server:5000/imageName
             ```
