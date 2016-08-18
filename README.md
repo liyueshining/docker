@@ -64,15 +64,28 @@
  9. create new docker image by dockerfile, example is as folloews:
  
          编写 Dockerfile
+         ```shell
          docker build -t newImageName .
+        ```
         
-    ```bash
-        FROM java:8-jre
-        MAINTAINER moon
-        COPY restconf-service-2.0-SNAPSHOT.jar .
-        COPY example.yml .
-        COPY example.keystore .
-        COPY yang ./yang
-        CMD java -jar restconf-service-2.0-SNAPSHOT.jar server example.yml
-        EXPOSE 8080
-    ```
+        ```bash
+          FROM java:8-jre
+          MAINTAINER moon
+          COPY restconf-service-2.0-SNAPSHOT.jar .
+          COPY example.yml .
+          COPY example.keystore .
+          COPY yang ./yang
+          CMD java -jar restconf-service-2.0-SNAPSHOT.jar server example.yml
+          EXPOSE 8080
+        ```
+    
+ 10. push image to private registry, example is as folloews:
+ 
+         1. tag
+            ```shell
+               docker tag imageId rd-server:5000/imageName
+            ```
+         2. push
+           ```shell
+               docker push rd-server:5000/imageName
+            ```
