@@ -63,12 +63,11 @@
         
  9. create new docker image by dockerfile, example is as folloews:
  
-         编写 Dockerfile
-         ```bash
+     编写 Dockerfile
+
           docker build -t newImageName .
-        ```
         
-        ```bash
+
           FROM java:8-jre
           MAINTAINER moon
           COPY restconf-service-2.0-SNAPSHOT.jar .
@@ -77,20 +76,16 @@
           COPY yang ./yang
           CMD java -jar restconf-service-2.0-SNAPSHOT.jar server example.yml
           EXPOSE 8080
-        ```
+
     
  10. push image to private registry, example is as folloews:
  
-         1. tag
-         
-            ```bash
-               docker tag imageId rd-server:5000/imageName
-            ```
-         2. push
-         
-           ```bash
-               docker push rd-server:5000/imageName
-            ```
+     1. tag
+            
+             docker tag imageId rd-server:5000/imageName
+     2. push
+             docker push rd-server:5000/imageName
+           
  11. solutions to https errors
      
      - modify Docker config file
