@@ -84,6 +84,7 @@
             
              docker tag imageId rd-server:5000/imageName
      2. push
+     
              docker push rd-server:5000/imageName
            
  11. solutions to https errors
