@@ -91,3 +91,11 @@
            ```bash
                docker push rd-server:5000/imageName
             ```
+ 11. solutions to https errors
+     
+     - modify Docker config file
+            vim /etc/default/docker
+     - add new line as follows:
+            DOCKER_OPTS="$DOCKER_OPTS --insecure-registry=104.131.173.242:5000"
+     - restart Docker
+            sudo service docker restart
