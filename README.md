@@ -93,7 +93,7 @@
             
             vim /etc/default/docker
 
-     - add new line as follows:
+     - add new line as follows, add ip to no_proxy if necessary:
      
             DOCKER_OPTS="$DOCKER_OPTS --insecure-registry=104.131.173.242:5000"
      - restart Docker
