@@ -14,7 +14,7 @@
 ### Install
  1. execute cmd as follows to intall the latest docker
  
-         curl -sSL https://get.docker.com/ | sh        
+         curl -fsSL https://get.docker.com/ | sh        
  2. check docker version
  
          docker -v       
