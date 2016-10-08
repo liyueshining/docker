@@ -48,19 +48,6 @@ Swap:   total_swap  used_swap   free_swap
 | used_swap     | 已使用的swap      | 
 | free_swap     | 空闲的swap        | 
 
-名称	说明
-
-* total_mem	物理内存总量
-* used_mem	已使用的物理内存量
-* free_mem	空闲的物理内存量
-* shared_mem	共享内存量
-* buffer	buffer所占内存量
-* cache	cache所占内存量
-* real_used	实际使用的内存量
-* real_free	实际空闲的内存量
-* total_swap	swap总量
-* used_swap	已使用的swap
-* free_swap	空闲的swap
 
 一般认为，buffer和cache是还可以再进行利用的内存，所以在计算空闲内存时，会将其剔除。
 因此这里有几个等式:
@@ -156,21 +143,16 @@ cgroup中的memory子系统为hierarchy提供了如下文件。
 这些文件的具体含义可以查看相关资料cgroup memory。
 这里主要介绍几个与docker监控相关的。
 
-文件名	说明
 
-memory.usage_in_bytes	已使用的内存量(包含cache和buffer)(字节)，相当于linux的used_meme
-
-memory.limit_in_bytes	限制的内存总量(字节)，相当于linux的total_mem
-
-memory.failcnt	申请内存失败次数计数
-
-memory.memsw.usage_in_bytes	已使用的内存和swap(字节)
-
-memory.memsw.limit_in_bytes	限制的内存和swap容量(字节)
-
-memory.memsw.failcnt	申请内存和swap失败次数计数
-
-memory.stat	内存相关状态
+|  文件名          | 说明             | 
+| ------------- |:----------------:| 
+|memory.usage_in_bytes	|已使用的内存量(包含cache和buffer)(字节)，相当于linux的used_meme|
+|memory.limit_in_bytes	|限制的内存总量(字节)，相当于linux的total_mem|
+|memory.failcnt	|申请内存失败次数计数|
+|memory.memsw.usage_in_bytes	|已使用的内存和swap(字节)|
+|memory.memsw.limit_in_bytes	|限制的内存和swap容量(字节)|
+|memory.memsw.failcnt	|申请内存和swap失败次数计数|
+|memory.stat	|内存相关状态|
 
 以下为一个容器的样例。
 
