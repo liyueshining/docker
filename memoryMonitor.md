@@ -33,6 +33,21 @@ Mem:     total_mem   used_mem    free_mem   shared_mem    buffer     cache
 Swap:   total_swap  used_swap   free_swap
 ```
 
+
+|  名称          | 说明             | 
+| ------------- |:----------------:| 
+| total_mem     | 物理内存总量       | 
+| used_mem      | 已使用的物理内存量  |  
+| free_mem      | 空闲的物理内存量    | 
+| shared_mem    | 共享内存量         | 
+| buffer        | buffer所占内存量   |  
+| cache         | cache所占内存量    | 
+| real_used     | 实际使用的内存量    | 
+| real_free     | 实际空闲的内存量    |  
+| total_swap    | swap总量          | 
+| used_swap     | 已使用的swap      | 
+| free_swap     | 空闲的swap        | 
+
 名称	说明
 
 * total_mem	物理内存总量
