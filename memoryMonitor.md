@@ -4,7 +4,7 @@
 
 要明白docker容器内存是如何计算的，首先要明白linux中内存的相关概念。
 
-使用free命令可以查看当前内存使用情况。
+使用```bash free ```命令可以查看当前内存使用情况。
 
 ```bash
 [root@localhost ~]$ free 
