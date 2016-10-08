@@ -15,14 +15,15 @@ Swap:     16777212    1277964   15499248
 ```
 这里有几个概念:
 
-mem: 物理内存
-swap: 虚拟内存。即可以把数据存放在硬盘上的数据
-shared: 共享内存。存在在物理内存中。
-buffers: 用于存放要输出到disk（块设备）的数据的
-cached: 存放从disk上读出的数据
+* mem: 物理内存
+* swap: 虚拟内存。即可以把数据存放在硬盘上的数据
+* shared: 共享内存。存在在物理内存中。
+* buffers: 用于存放要输出到disk（块设备）的数据的
+* cached: 存放从disk上读出的数据
+
 可以参考这里。
 
-为方便说明，我对free的结果做了一个对应。
+为方便说明，我对```free```的结果做了一个对应。
 
 ```bash
 [root@localhost ~]$ free 
@@ -33,23 +34,28 @@ Swap:   total_swap  used_swap   free_swap
 ```
 
 名称	说明
-total_mem	物理内存总量
-used_mem	已使用的物理内存量
-free_mem	空闲的物理内存量
-shared_mem	共享内存量
-buffer	buffer所占内存量
-cache	cache所占内存量
-real_used	实际使用的内存量
-real_free	实际空闲的内存量
-total_swap	swap总量
-used_swap	已使用的swap
-free_swap	空闲的swap
+
+* total_mem	物理内存总量
+* used_mem	已使用的物理内存量
+* free_mem	空闲的物理内存量
+* shared_mem	共享内存量
+* buffer	buffer所占内存量
+* cache	cache所占内存量
+* real_used	实际使用的内存量
+* real_free	实际空闲的内存量
+* total_swap	swap总量
+* used_swap	已使用的swap
+* free_swap	空闲的swap
+
 一般认为，buffer和cache是还可以再进行利用的内存，所以在计算空闲内存时，会将其剔除。
 因此这里有几个等式:
 
 real_used = used_mem - buffer - cache
+
 real_free = free_mem + buffer + cache
+
 total_mem = used_mem + free_mem
+
 了解了这些，我们再来看free的数据源。其实其数据源是来自于/proc/memeinfo文件。
 
 ```bash
@@ -136,14 +142,23 @@ cgroup中的memory子系统为hierarchy提供了如下文件。
 这里主要介绍几个与docker监控相关的。
 
 文件名	说明
+
 memory.usage_in_bytes	已使用的内存量(包含cache和buffer)(字节)，相当于linux的used_meme
+
 memory.limit_in_bytes	限制的内存总量(字节)，相当于linux的total_mem
+
 memory.failcnt	申请内存失败次数计数
+
 memory.memsw.usage_in_bytes	已使用的内存和swap(字节)
+
 memory.memsw.limit_in_bytes	限制的内存和swap容量(字节)
+
 memory.memsw.failcnt	申请内存和swap失败次数计数
+
 memory.stat	内存相关状态
+
 以下为一个容器的样例。
+
 ```bash
 [root@localhost 53a11f13c08099dd6d21030dd2ddade54d5cdd7ae7e9e68f5ba055ad28498b6f]$ cat memory.usage_in_bytes 
 135021858816
@@ -183,19 +198,33 @@ total_unevictable 0
 memory.stat包含有最丰富的
 
 统计	描述
+
 cache	页缓存，包括 tmpfs（shmem），单位为字节
+
 rss	匿名和 swap 缓存，不包括 tmpfs（shmem），单位为字节
+
 mapped_file	memory-mapped 映射的文件大小，包括 tmpfs（shmem），单位为字节
+
 pgpgin	存入内存中的页数
+
 pgpgout	从内存中读出的页数
+
 swap	swap 用量，单位为字节
+
 active_anon	在活跃的最近最少使用（least-recently-used，LRU）列表中的匿名和 swap 缓存，包括 tmpfs（shmem），单位为字节
+
 inactive_anon	不活跃的 LRU 列表中的匿名和 swap 缓存，包括 tmpfs（shmem），单位为字节
+
 active_file	活跃 LRU 列表中的 file-backed 内存，以字节为单位
+
 inactive_file	不活跃 LRU 列表中的 file-backed 内存，以字节为单位
+
 unevictable	无法再生的内存，以字节为单位
+
 hierarchical_memory_limit	包含 memory cgroup 的层级的内存限制，单位为字节
+
 hierarchical_memsw_limit	包含 memory cgroup 的层级的内存加 swap 限制，单位为字节
+
 active_anon + inactive_anon = anonymous memory + file cache for tmpfs + swap cache
 
 active_file + inactive_file = cache - size of tmpfs
@@ -219,6 +248,7 @@ tmpfs即share memory，共享内存
 因为在memory.stat中存在有
 
 active_file + inactive_file = cache - size of tmpfs
+
 因此可以计算实际使用的内存量为
 
 real_used = memory.usage_in_bytes - (rss + active_file + inactive_file)
