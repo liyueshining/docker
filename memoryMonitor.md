@@ -197,29 +197,17 @@ memory.stat包含有最丰富的
 |  统计          | 描述             | 
 | ------------- |:----------------:| 
 |cache	|页缓存，包括 tmpfs（shmem），单位为字节|
-
 |rss	|匿名和 swap 缓存，不包括 tmpfs（shmem），单位为字节|
-
 |mapped_file	|memory-mapped 映射的文件大小，包括 tmpfs（shmem），单位为字节|
-
 |pgpgin	|存入内存中的页数|
-
 |pgpgout	|从内存中读出的页数|
-
 |swap	|swap 用量，单位为字节|
-
 |active_anon	|在活跃的最近最少使用（least-recently-used，LRU）列表中的匿名和 swap 缓存，包括 tmpfs（shmem），单位为字节|
-
 |inactive_anon	|不活跃的 LRU 列表中的匿名和 swap 缓存，包括 tmpfs（shmem），单位为字节|
-
 |active_file	|活跃 LRU 列表中的 file-backed 内存，以字节为单位|
-
 |inactive_file	|不活跃 LRU 列表中的 file-backed 内存，以字节为单位|
-
 |unevictable	|无法再生的内存，以字节为单位|
-
 |hierarchical_memory_limit	|包含 memory cgroup 的层级的内存限制，单位为字节|
-
 |hierarchical_memsw_limit	|包含 memory cgroup 的层级的内存加 swap 限制，单位为字节|
 
 active_anon + inactive_anon = anonymous memory + file cache for tmpfs + swap cache
