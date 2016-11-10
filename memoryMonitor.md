@@ -237,3 +237,14 @@ active_file + inactive_file = cache - size of tmpfs
 因此可以计算实际使用的内存量为
 
 real_used = memory.usage_in_bytes - (rss + active_file + inactive_file)
+
+
+## 在linux下，查看一个运行中的程序， 占用了多少内存， 一般的命令有
+   1. ps aux：
+
+     其中  VSZ(或VSS)列 表示，程序占用了多少虚拟内存。
+           RSS列 表示， 程序占用了多少物理内存。
+           虚拟内存可以不用考虑，它并不占用实际物理内存。
+   2. top 命令也可以
+     其中  VIRT(或VSS)列  表示，程序占用了多少虚拟内存。 同 ps aux 中的 VSZ列
+           RES列 表示， 程序占用了多少物理内存。同 ps aux 中的RSS列
