@@ -58,10 +58,10 @@
 　　　  - 导入：修改new.sql，在插入或修改语句前加一句话："SET NAMES utf8;"，并修改所有的gb2312为utf8，保存。
 
 　　　  ```bash　　　
-           mysql -h localhost -u root -p dbname < new.sql
+        mysql -h localhost -u root -p dbname < new.sql
         ```
-　　　　　　
-         如果报max_allowed_packet的错误，是因为文件太大，mysql默认的这个参数是1M，修改my.cnf中的值即可（需要重启mysql)。
+	
+        如果报max_allowed_packet的错误，是因为文件太大，mysql默认的这个参数是1M，修改my.cnf中的值即可（需要重启mysql)。
 
 9. 支持utf8的客户端：Mysql-Front,Navicat,PhpMyAdmin，Linux Shell（连接后执行SET NAMES utf8;后就可以读写utf8的数据了。5.4设置完毕后就不用再执行这句话了）
 
@@ -130,9 +130,9 @@
 	
     remove data and log
 	
-	sudo rm -r /var/log/mongodb
+    sudo rm -r /var/log/mongodb
 	
-	sudo rm -r /var/lib/mongodb
+    sudo rm -r /var/lib/mongodb
 	
 7. 概念
    文档型的NoSql数据库
@@ -151,10 +151,11 @@
    
 8. 初级CURD:
   
-  insert：  单条：db.smcollection.insertOne({name: ""}), 批量：db.smcollection.insertMany([{name: "a"},{name: "b"}]) 新版本支持 
-            也可以对insert() 做循环插入
+  - insert：  
+      单条：db.smcollection.insertOne({name: ""}), 批量：db.smcollection.insertMany([{name: "a"},{name: "b"}]) 新版本支持 
+      也可以对insert() 做循环插入
   
-  find: 
+  - find: 
        日常开发中，我们玩查询，玩的最多的是下面这两类：
 
        1： >, >=, <, <=, !=, =。  对应的mongo封装是 "$gt", "$gte", "$lt", "$lte", "$ne"
