@@ -4,7 +4,7 @@
 
 ## MySQL
 
-1. install
+### install
 
     ```bash
     apt-get install mysql-server
@@ -17,22 +17,22 @@
     日志文件路径：/var/log/mysql
 
 			
-2. status
+### status
     ```bash
      service mysql status
     ```
 
-3. login
+### login
     ```bash
      mysql -u root -p
     ```
 
-4. remote login
+### remote login
     ```bash
      mysql -h ip -u root -p
     ```
 
-5. 设置字符集（以utf8为例）：
+### 设置字符集（以utf8为例）：
 
 　　　　-  查看当前的编码：*show variables like 'character%'*;
 
@@ -42,13 +42,13 @@
 
 　　　　-  重启mysql  *service mysql restart  or   mysqld restart*
 
-6. 设置bind-address，如果是127.0.0.1的话，只能在本机访问MySQL，无法远程访问。
+### 设置bind-address，如果是127.0.0.1的话，只能在本机访问MySQL，无法远程访问。
         bind-address = 0.0.0.0
 
-7. 修改mysql最大连接数
+### 修改mysql最大连接数
         max_connections=1024  设置太大的话 会导致 MySQL 启不来
 		
-8. 旧数据升级到utf8（旧数据以latin1为例）：
+### 旧数据升级到utf8（旧数据以latin1为例）：
 
 　　　　- 导出旧数据：*mysqldump --default-character-set=latin1 -hlocalhost -uroot -B dbname --tables old_table >old.sql*
 
@@ -63,9 +63,9 @@
 	
         如果报max_allowed_packet的错误，是因为文件太大，mysql默认的这个参数是1M，修改my.cnf中的值即可（需要重启mysql)。
 
-9. 支持utf8的客户端：Mysql-Front,Navicat,PhpMyAdmin，Linux Shell（连接后执行SET NAMES utf8;后就可以读写utf8的数据了。5.4设置完毕后就不用再执行这句话了）
+### 支持utf8的客户端：Mysql-Front,Navicat,PhpMyAdmin，Linux Shell（连接后执行SET NAMES utf8;后就可以读写utf8的数据了。5.4设置完毕后就不用再执行这句话了）
 
-10. 备份和恢复
+### 备份和恢复
 
 　　　　备份单个数据库：*mysqldump -uroot -p -B dbname > dbname.sql*
 
@@ -78,7 +78,7 @@
 　　　　恢复表：*mysql -uroot -p dbname < name.sql (必须指定数据库) *
 
 
-11. 使用：
+### 使用：
     查看所有的数据库：
 	show databases;
 	use smdb;
@@ -87,7 +87,7 @@
 
 ## MongoDB 2.4.9
 
-1. install
+### install
     ```bash
      apt-get install mongodb
     ```	
@@ -101,12 +101,12 @@
     you must modify the access control rights to the /var/lib/mongodb 
     and /var/log/mongodb directories to give this user access to these directories.
 		
-2.  restart mongodb
+### restart mongodb
     ```bash
      service mongodb restart
     ```	
 
-3.  manage：
+### manage：
 
         admin web console  http://ip:28017
 	
@@ -117,13 +117,13 @@
         and mongod
 
 
-4.  设置bind_ip
+### 设置bind_ip
 
        bind_ip: "0.0.0.0"
 	   
-5.  使用：
+### 使用：
 
-6.  卸载：
+### 卸载：
     service mongodb stop
 	
     apt-get purge mongodb
@@ -134,7 +134,7 @@
 	
     sudo rm -r /var/lib/mongodb
 	
-7. 概念
+### 概念
    文档型的NoSql数据库
    
    对标 关系型数据库的 概念
@@ -149,21 +149,20 @@
    use smdb;
    show collections;
    
-8. 初级CURD:
+### 初级CURD:
   
-    - insert：  
+#### insert：  
       单条：db.smcollection.insertOne({name: ""}), 批量：db.smcollection.insertMany([{name: "a"},{name: "b"}]) 新版本支持 
       也可以对insert() 做循环插入
   
-    - find: 
+#### find: 
        日常开发中，我们玩查询，玩的最多的是下面这两类：
 
        1： >, >=, <, <=, !=, =。  对应的mongo封装是 "$gt", "$gte", "$lt", "$lte", "$ne"
 
        2：And，OR，In，NotIn        mongodb都封装好了 这些操作，对应的是  "$or", "$in"，"$nin"
-	 
 	如：
-	
+	```bash
 	 > db.info.find({name: {$in:["moon","ru"]}});
          { "_id" : ObjectId("59ccdbba5363253e0ef0f42d"), "name" : "moon", "sex" : "male" }
          { "_id" : ObjectId("59ccdd17ce94b645f5b101f9"), "name" : "ru", "sex" : "female" }
@@ -171,20 +170,20 @@
 	 > db.info.find({$or: [{name: "ru"}, {name: "moon"}]});
          { "_id" : ObjectId("59ccdbba5363253e0ef0f42d"), "name" : "moon", "sex" : "male" }
          { "_id" : ObjectId("59ccdd17ce94b645f5b101f9"), "name" : "ru", "sex" : "female" }
-		 
+	```
+	
        3： 特殊的匹配，正则表达式，威力强劲
-	  
 	  startwith m  endwith u  ，好像 如果后面的匹配到的话 会以后面的为准。
-	    
+	   ```bash
 	   > db.info.find({name: /^m/, name: /u$/});
            { "_id" : ObjectId("59ccdd17ce94b645f5b101f9"), "name" : "ru", "sex" : "female" }
-	 
+	  ```
        4：$where
-        
+         ```bash
 	   > db.info.find({$where: function(){return this.name=='moon'}});
            { "_id" : ObjectId("59ccdbba5363253e0ef0f42d"), "name" : "moon", "sex" : "male" }	
-	 
-    - update：
+	 ```
+#### update：
 	     整体更新。局部更新，mongodb中提供了两个修改器： $inc 和 $set
 		 
 	     $inc也就是increase的缩写，每次修改会在原有的基础上自增$inc指定的值，如果“文档”中没有此key，则会创建key
@@ -200,7 +199,7 @@
              > db.info.find();
              { "_id" : ObjectId("59ccdbba5363253e0ef0f42d"), "name" : "moon", "age" : 20 }
 	   
-     - upsert：
+#### upsert：
             如果没有查到，就在数据库里面新增一条，将update的第三个参数设为true即可
 		  
             如：
@@ -209,7 +208,7 @@
 	      
 	    在mongodb中如果匹配多条，默认的情况下只更新第一条，如果批量更新，那么在mongodb中实现是在update的第四个参数中设为true即可
 
-     - remove：
+#### remove：
 	   remove中如果不带参数将删除所有数据，在mongodb中是一个不可撤回的操作
            如：
 	   
@@ -218,9 +217,9 @@
            { "_id" : ObjectId("59ccdcd9ce94b645f5b101f8"), "name" : "heather", "sex" : "female" }
            { "_id" : ObjectId("59ccdbba5363253e0ef0f42d"), "age" : 20, "id" : 2, "name" : "moon" }
 		
-9.  高级操作，聚合 和 游标
+### 高级操作，聚合 和 游标
 
-    - 聚合
+#### 聚合
       常见的聚合操作跟sql server一样，有：count，distinct，group，mapReduce。
 	   
      1. count
@@ -400,7 +399,7 @@
            { "_id" : "ru", "value" : { "count" : 1 } }
         > 
 
-    二： 游标
+#### 游标
 	
 	     mongodb里面的游标有点类似闭包中的延迟执行，比如：
 
@@ -420,14 +419,14 @@
           ace
 
 		  
-10.  索引操作
+### 索引操作
 
     mongodb中关于索引的基本操作，日常开发都避免不了要对程序进行性能优化，而程序的操作无非就是CURD，通常
     又会花费50%的时间在R上面，因为Read操作对用户来说是非常敏感的。
 
     索引查找 带来的性能提升 见 如下：
 	
-	一：性能分析函数（explain）
+#### 性能分析函数（explain）
 	既然要做分析，肯定要有分析的工具，mongodb中提供了一个关键字叫做“explain"， 类似于Oracle的执行计划。
 	
 	> db.info.find();
@@ -471,7 +470,7 @@
    millis:        这个就是我们最最最....关心的东西，总共耗时的毫秒数。
    
    
-   二：建立索引（ensureIndex）
+#### 建立索引（ensureIndex）
 
      那么该如何优化呢？使用 mongodb中的索引查找，看看能不能让我们的查询一飞冲天.....
 	 
@@ -511,7 +510,7 @@
 
    n:            直接定位返回。
    
-   三：唯一索引
+#### 唯一索引
 
     建立唯一索引，重复的键值就不能插入，在mongodb中的使用方法是：
 
@@ -542,7 +541,7 @@
        ]
 		  
 		  
-   四：组合索引
+#### 组合索引
 
      有时候查询不是单条件的，可能是多条件，比如查找age 是 20，名字叫‘jack’的人，那么我们可以建立“姓名”和"age“的联合索引来加速查询。
 	 
@@ -637,7 +636,7 @@
 }
 
 
-  五： 删除索引
+#### 删除索引
 
      可能随着业务需求的变化，原先建立的索引可能不符合要求了，索引会降低CUD这三
 
