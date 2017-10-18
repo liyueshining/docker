@@ -7,7 +7,7 @@
 1. install
 
     ```bash
-       apt-get install mysql-server
+    apt-get install mysql-server
     ```
 			
     配置文件路径：/etc/mysql/my.cnf
@@ -18,19 +18,19 @@
 
 			
 2. status
-```bash
-    service mysql status
-```
+    ```bash
+     service mysql status
+    ```
 
 3. login
-```bash
-   mysql -u root -p
-```
+    ```bash
+     mysql -u root -p
+    ```
 
 4. remote login
-```bash
-   mysql -h ip -u root -p
-```
+    ```bash
+     mysql -h ip -u root -p
+    ```
 
 5. 设置字符集（以utf8为例）：
 
@@ -88,9 +88,9 @@
 ## MongoDB 2.4.9
 
 1. install
-```bash
-   apt-get install mongodb
-```	
+    ```bash
+     apt-get install mongodb
+    ```	
     The MongoDB instance stores its data files in /var/lib/mongodb 
     and its log files in /var/log/mongodb by default, 
     and runs using the mongodb user account. 
@@ -102,9 +102,9 @@
     and /var/log/mongodb directories to give this user access to these directories.
 		
 2.  restart mongodb
-```bash
-   service mongodb restart
-```	
+    ```bash
+     service mongodb restart
+    ```	
 
 3.  manage：
 
@@ -112,9 +112,9 @@
 	
         user connection port 27017
 		
-	mongodb shell by  input mongo
+        mongodb shell by  input mongo
 		
-	and mongod
+        and mongod
 
 
 4.  设置bind_ip
