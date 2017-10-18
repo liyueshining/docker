@@ -1,21 +1,27 @@
-14.04.1-Ubuntu x86_64 GNU/Linux
+# 关于数据库的研究
 
-MySQL
+环境：14.04.1-Ubuntu x86_64 GNU/Linux
 
-1, install
-            apt-get install mysql-server
+## MySQL
+
+1. install
+```bash
+apt-get install mysql-server
+```
 			
-			配置文件路径：/etc/mysql/my.cnf
-			数据文件路径：/var/lib/mysql
-			日志文件路径：/var/log/mysql
+配置文件路径：/etc/mysql/my.cnf
+数据文件路径：/var/lib/mysql
+日志文件路径：/var/log/mysql
 			
-2, status
-            service mysql status
+2. status
+```bash
+ service mysql status
+```
 
-3, login
+3. login
             mysql -u root -p
 
-4, remote login
+4. remote login
             mysql -h ip -u root -p
 
 5. 设置字符集（以utf8为例）：
@@ -70,9 +76,9 @@ MySQL
 	show tables;
 
 
-MongoDB 2.4.9
+## MongoDB 2.4.9
 
-1，install
+1. install
         apt-get install mongodb
 		
 		The MongoDB instance stores its data files in /var/lib/mongodb 
@@ -85,10 +91,10 @@ MongoDB 2.4.9
 		you must modify the access control rights to the /var/lib/mongodb 
 		and /var/log/mongodb directories to give this user access to these directories.
 		
-2,  restart mongodb
+2.  restart mongodb
         service mongodb restart
 		
-3， manage：
+3.  manage：
         admin web console  http://ip:28017
 		user connection port 27017
 		
@@ -97,13 +103,13 @@ MongoDB 2.4.9
 		and mongod
 
 
-4， 设置bind_ip
+4.  设置bind_ip
 
        bind_ip: "0.0.0.0"
 	   
-5， 使用：
+5.  使用：
 
-6， 卸载：
+6.  卸载：
     service mongodb stop
 	
 	apt-get purge mongodb
@@ -112,7 +118,7 @@ MongoDB 2.4.9
 	sudo rm -r /var/log/mongodb
 	sudo rm -r /var/lib/mongodb
 	
-7，概念
+7. 概念
    文档型的NoSql数据库，对标 关系型数据库的 概念
    db（database）, collection(table), document(record)
    mongodb没有固定的schema。存储的document是类似于json的bson文档。比json支持更多的数据类型，如：Date, BinDate
@@ -123,7 +129,7 @@ MongoDB 2.4.9
    use smdb;
    show collections;
    
-8,初级CURD:
+8. 初级CURD:
   
   insert：  单条：db.smcollection.insertOne({name: ""}), 批量：db.smcollection.insertMany([{name: "a"},{name: "b"}]) 新版本支持 
             也可以对insert() 做循环插入
@@ -185,7 +191,7 @@ MongoDB 2.4.9
         { "_id" : ObjectId("59ccdcd9ce94b645f5b101f8"), "name" : "heather", "sex" : "female" }
         { "_id" : ObjectId("59ccdbba5363253e0ef0f42d"), "age" : 20, "id" : 2, "name" : "moon" }
 		
-9，高级操作，聚合 和 游标
+9.  高级操作，聚合 和 游标
 
     一： 聚合
        常见的聚合操作跟sql server一样，有：count，distinct，group，mapReduce。
@@ -385,7 +391,7 @@ MongoDB 2.4.9
           ace
 
 		  
-10. 索引操作
+10.  索引操作
 
     mongodb中关于索引的基本操作，日常开发都避免不了要对程序进行性能优化，而程序的操作无非就是CURD，通常
     又会花费50%的时间在R上面，因为Read操作对用户来说是非常敏感的。
