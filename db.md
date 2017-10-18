@@ -10,11 +10,11 @@
     apt-get install mysql-server
 ```
 			
-配置文件路径：/etc/mysql/my.cnf
+   配置文件路径：/etc/mysql/my.cnf
 
-数据文件路径：/var/lib/mysql
+   数据文件路径：/var/lib/mysql
 
-日志文件路径：/var/log/mysql
+   日志文件路径：/var/log/mysql
 
 			
 2. status
@@ -34,13 +34,13 @@
 
 5. 设置字符集（以utf8为例）：
 
-　　　　1.  查看当前的编码：*show variables like 'character%'*;
+　　　　*  查看当前的编码：*show variables like 'character%'*;
 
-　　　　2.　修改my.cnf，在[client]下添加default-character-set=utf8
+　　　　*　修改my.cnf，在[client]下添加default-character-set=utf8
 
-　　　　3.  在[server]下添加default-character-set=utf8，init_connect='SET NAMES utf8;'   ---好像没有这一项，加了之后 会导致MySQL 启动不了。
+　　　　*  在[server]下添加default-character-set=utf8，init_connect='SET NAMES utf8;'   ---好像没有这一项，加了之后 会导致MySQL 启动不了。
 
-　　　　4.  重启mysql  *service mysql restart  or   mysqld restart*
+　　　　*  重启mysql  *service mysql restart  or   mysqld restart*
 
 6. 设置bind-address，如果是127.0.0.1的话，只能在本机访问MySQL，无法远程访问。
         bind-address = 0.0.0.0
@@ -61,7 +61,8 @@
 　　　  ```bash　　　
            mysql -h localhost -u root -p dbname < new.sql
         ```
-　　　　　　如果报max_allowed_packet的错误，是因为文件太大，mysql默认的这个参数是1M，修改my.cnf中的值即可（需要重启mysql)。
+　　　　　　
+           如果报max_allowed_packet的错误，是因为文件太大，mysql默认的这个参数是1M，修改my.cnf中的值即可（需要重启mysql)。
 
 9. 支持utf8的客户端：Mysql-Front,Navicat,PhpMyAdmin，Linux Shell（连接后执行SET NAMES utf8;后就可以读写utf8的数据了。5.4设置完毕后就不用再执行这句话了）
 
