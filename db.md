@@ -151,19 +151,20 @@
    
 8. 初级CURD:
   
-  - insert：  
+    - insert：  
       单条：db.smcollection.insertOne({name: ""}), 批量：db.smcollection.insertMany([{name: "a"},{name: "b"}]) 新版本支持 
       也可以对insert() 做循环插入
   
-  - find: 
+    - find: 
        日常开发中，我们玩查询，玩的最多的是下面这两类：
 
        1： >, >=, <, <=, !=, =。  对应的mongo封装是 "$gt", "$gte", "$lt", "$lte", "$ne"
 
        2：And，OR，In，NotIn        mongodb都封装好了 这些操作，对应的是  "$or", "$in"，"$nin"
 	 
-	   如：
-	    > db.info.find({name: {$in:["moon","ru"]}});
+	如：
+	
+	 > db.info.find({name: {$in:["moon","ru"]}});
          { "_id" : ObjectId("59ccdbba5363253e0ef0f42d"), "name" : "moon", "sex" : "male" }
          { "_id" : ObjectId("59ccdd17ce94b645f5b101f9"), "name" : "ru", "sex" : "female" }
 		
@@ -171,79 +172,86 @@
          { "_id" : ObjectId("59ccdbba5363253e0ef0f42d"), "name" : "moon", "sex" : "male" }
          { "_id" : ObjectId("59ccdd17ce94b645f5b101f9"), "name" : "ru", "sex" : "female" }
 		 
-	   3： 特殊的匹配，正则表达式，威力强劲
-	    startwith m  endwith u  ，好像 如果后面的匹配到的话 会以后面的为准。
-	    > db.info.find({name: /^m/, name: /u$/});
-        { "_id" : ObjectId("59ccdd17ce94b645f5b101f9"), "name" : "ru", "sex" : "female" }
+       3： 特殊的匹配，正则表达式，威力强劲
+	  
+	  startwith m  endwith u  ，好像 如果后面的匹配到的话 会以后面的为准。
+	    
+	   > db.info.find({name: /^m/, name: /u$/});
+           { "_id" : ObjectId("59ccdd17ce94b645f5b101f9"), "name" : "ru", "sex" : "female" }
 	 
-	   4：$where
-        > db.info.find({$where: function(){return this.name=='moon'}});
-       { "_id" : ObjectId("59ccdbba5363253e0ef0f42d"), "name" : "moon", "sex" : "male" }	
+       4：$where
+        
+	   > db.info.find({$where: function(){return this.name=='moon'}});
+           { "_id" : ObjectId("59ccdbba5363253e0ef0f42d"), "name" : "moon", "sex" : "male" }	
 	 
-  update：
+    - update：
 	     整体更新。局部更新，mongodb中提供了两个修改器： $inc 和 $set
 		 
-		 $inc也就是increase的缩写，每次修改会在原有的基础上自增$inc指定的值，如果“文档”中没有此key，则会创建key
-         如：
-		 > db.info.update({name: "moon"},{$inc: {age: 30}});
-         > db.info.find();
-        { "_id" : ObjectId("59ccdbba5363253e0ef0f42d"), "name" : "moon", "age" : 60 }
+	     $inc也就是increase的缩写，每次修改会在原有的基础上自增$inc指定的值，如果“文档”中没有此key，则会创建key
+             如：
+		 
+	     > db.info.update({name: "moon"},{$inc: {age: 30}});
+             > db.info.find();
+             { "_id" : ObjectId("59ccdbba5363253e0ef0f42d"), "name" : "moon", "age" : 60 }
 		
-		$set修改器
+	     $set修改器
 		
-		> db.info.update({name: "moon"},{$set: {age: 20}});
-        > db.info.find();
-       { "_id" : ObjectId("59ccdbba5363253e0ef0f42d"), "name" : "moon", "age" : 20 }
+	     > db.info.update({name: "moon"},{$set: {age: 20}});
+             > db.info.find();
+             { "_id" : ObjectId("59ccdbba5363253e0ef0f42d"), "name" : "moon", "age" : 20 }
 	   
-   upsert：
-          如果没有查到，就在数据库里面新增一条，将update的第三个参数设为true即可
+     - upsert：
+            如果没有查到，就在数据库里面新增一条，将update的第三个参数设为true即可
 		  
-		  如：
+            如：
 		  
-    批量更新：
-	      在mongodb中如果匹配多条，默认的情况下只更新第一条，如果批量更新，那么在mongodb中实现是在update的第四个参数中设为true即可
+            批量更新：
+	      
+	    在mongodb中如果匹配多条，默认的情况下只更新第一条，如果批量更新，那么在mongodb中实现是在update的第四个参数中设为true即可
 
-    remove：
-	
-	     remove中如果不带参数将删除所有数据，在mongodb中是一个不可撤回的操作
-		 如：
-		 > db.info.remove({name: "ru"})
-         > db.info.find();
-        { "_id" : ObjectId("59ccdcd9ce94b645f5b101f8"), "name" : "heather", "sex" : "female" }
-        { "_id" : ObjectId("59ccdbba5363253e0ef0f42d"), "age" : 20, "id" : 2, "name" : "moon" }
+     - remove：
+	   remove中如果不带参数将删除所有数据，在mongodb中是一个不可撤回的操作
+           如：
+	   
+	   > db.info.remove({name: "ru"})
+           > db.info.find();
+           { "_id" : ObjectId("59ccdcd9ce94b645f5b101f8"), "name" : "heather", "sex" : "female" }
+           { "_id" : ObjectId("59ccdbba5363253e0ef0f42d"), "age" : 20, "id" : 2, "name" : "moon" }
 		
 9.  高级操作，聚合 和 游标
 
-    一： 聚合
-       常见的聚合操作跟sql server一样，有：count，distinct，group，mapReduce。
+    - 聚合
+      常见的聚合操作跟sql server一样，有：count，distinct，group，mapReduce。
 	   
-	    1. count
+      1. count
 	     
-		如：
-		> db.info.count();
+	如：
+	
+	> db.info.count();
           2
         > db.info.count({name: "moon"});
           1
 		  
-	    2. distinct ，指定哪个key，可以显示那个key下 所有不重复的value
+      2. distinct ，指定哪个key，可以显示那个key下 所有不重复的value
 		
-		如：
-		> db.info.distinct("name");
+        如：
+	
+        > db.info.distinct("name");
           [ "heather", "moon" ]
 		  
-		3. group 
-		 在mongodb里面做group操作有点小复杂，其实group操作本质上形成了一种“k-v”模型，有了这种思维，我们来看看如何使用group。
+      3. group 
+         在mongodb里面做group操作有点小复杂，其实group操作本质上形成了一种“k-v”模型，有了这种思维，我们来看看如何使用group。
 
          下面举的例子就是按照age进行group操作，value为对应age的姓名。下面对这些参数介绍一下：
           
-		  key：  这个就是分组的key，我们这里是对年龄分组。
+	 key：  这个就是分组的key，我们这里是对年龄分组。
 
-          initial: 每组都分享一个”初始化函数“，特别注意：是每一组，比如这个的age=20的value的list分享一个initial函数，age=22同样也分享一个initial函数。
+        initial: 每组都分享一个”初始化函数“，特别注意：是每一组，比如这个的age=20的value的list分享一个initial函数，age=22同样也分享一个initial函数。
 
-          $reduce: 这个函数的第一个参数是当前的文档对象，第二个参数是上一次function操作的累计对象，第一次为initial中的{”perosn“：[]}。有多少个文档， $reduce就会调用多少次。
+        $reduce: 这个函数的第一个参数是当前的文档对象，第二个参数是上一次function操作的累计对象，第一次为initial中的{”perosn“：[]}。有多少个文档， $reduce就会调用多少次。
         
-		如：
-		> db.info.find();
+	如：
+	> db.info.find();
          { "_id" : ObjectId("59ccdcd9ce94b645f5b101f8"), "name" : "heather", "sex" : "female" }
          { "_id" : ObjectId("59ccdbba5363253e0ef0f42d"), "age" : 20, "id" : 2, "name" : "moon" }
          { "_id" : ObjectId("59cf018853be1d881737f967"), "name" : "jac", "age" : 22 }
@@ -251,7 +259,7 @@
          { "_id" : ObjectId("59cf01a153be1d881737f969"), "name" : "ru", "age" : 22 }
          { "_id" : ObjectId("59cf01af53be1d881737f96a"), "name" : "ace", "age" : 30 }
         
-		> db.info.group({
+	> db.info.group({
 		      key:{age: true}, 
 			  initial: {info: []}, 
 			  $reduce: function(cur, prev){prev.info.push(cur.name)}})
@@ -289,7 +297,7 @@
 	        }
         ]
 		
-		有时可能有如下的要求：
+	有时可能有如下的要求：
 
         1：想过滤掉age>25一些人员。
 
