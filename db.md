@@ -168,7 +168,7 @@
          { "_id" : ObjectId("59ccdbba5363253e0ef0f42d"), "name" : "moon", "sex" : "male" }
          { "_id" : ObjectId("59ccdd17ce94b645f5b101f9"), "name" : "ru", "sex" : "female" }
 		
-		> db.info.find({$or: [{name: "ru"}, {name: "moon"}]});
+	 > db.info.find({$or: [{name: "ru"}, {name: "moon"}]});
          { "_id" : ObjectId("59ccdbba5363253e0ef0f42d"), "name" : "moon", "sex" : "male" }
          { "_id" : ObjectId("59ccdd17ce94b645f5b101f9"), "name" : "ru", "sex" : "female" }
 		 
@@ -223,7 +223,7 @@
     - 聚合
       常见的聚合操作跟sql server一样，有：count，distinct，group，mapReduce。
 	   
-      1. count
+     1. count
 	     
 	如：
 	
