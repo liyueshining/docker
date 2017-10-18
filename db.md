@@ -6,9 +6,9 @@
 
 1. install
 
-```bash
-    apt-get install mysql-server
-```
+    ```bash
+       apt-get install mysql-server
+    ```
 			
     配置文件路径：/etc/mysql/my.cnf
 
