@@ -108,9 +108,7 @@ and /var/log/mongodb directories to give this user access to these directories.
 		
 ### restart mongodb
     
-```bash
-   service mongodb restart
-```	
+    service mongodb restart
 
 ### manage：
 
@@ -176,29 +174,27 @@ remove data and log
 
    2. And，OR，In，NotIn        mongodb都封装好了 这些操作，对应的是  "$or", "$in"，"$nin"
 	
-      如：
+   如：
 	
-	```bash
-	 > db.info.find({name: {$in:["moon","ru"]}});
+        > db.info.find({name: {$in:["moon","ru"]}});
          { "_id" : ObjectId("59ccdbba5363253e0ef0f42d"), "name" : "moon", "sex" : "male" }
          { "_id" : ObjectId("59ccdd17ce94b645f5b101f9"), "name" : "ru", "sex" : "female" }
 		
-	 > db.info.find({$or: [{name: "ru"}, {name: "moon"}]});
+        > db.info.find({$or: [{name: "ru"}, {name: "moon"}]});
          { "_id" : ObjectId("59ccdbba5363253e0ef0f42d"), "name" : "moon", "sex" : "male" }
          { "_id" : ObjectId("59ccdd17ce94b645f5b101f9"), "name" : "ru", "sex" : "female" }
-	```
 	
    3. 特殊的匹配，正则表达式，威力强劲
       startwith m  endwith u  ，好像 如果后面的匹配到的话 会以后面的为准。
-      ```bash
-	   > db.info.find({name: /^m/, name: /u$/});
+      
+          > db.info.find({name: /^m/, name: /u$/});
            { "_id" : ObjectId("59ccdd17ce94b645f5b101f9"), "name" : "ru", "sex" : "female" }
-      ```
+      
    4. $where
-      ```bash
-	   > db.info.find({$where: function(){return this.name=='moon'}});
+      
+          > db.info.find({$where: function(){return this.name=='moon'}});
            { "_id" : ObjectId("59ccdbba5363253e0ef0f42d"), "name" : "moon", "sex" : "male" }	
-      ```
+      
 #### update：
 整体更新。局部更新，mongodb中提供了两个修改器： $inc 和 $set
 		 
