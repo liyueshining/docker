@@ -172,7 +172,7 @@ remove data and log
 #### find: 
    日常开发中，我们玩查询，玩的最多的是下面这两类：
 
-   1. >, >=, <, <=, !=, =。  对应的mongo封装是 "$gt", "$gte", "$lt", "$lte", "$ne"
+   1. \>, >=, <, <=, !=, =。  对应的mongo封装是 "$gt", "$gte", "$lt", "$lte", "$ne"
 
    2. And，OR，In，NotIn        mongodb都封装好了 这些操作，对应的是  "$or", "$in"，"$nin"
 	
