@@ -206,7 +206,7 @@ $inc也就是increase的缩写，每次修改会在原有的基础上自增$inc�
              > db.info.find();
              { "_id" : ObjectId("59ccdbba5363253e0ef0f42d"), "name" : "moon", "age" : 60 }
 		
-	     $set修改器
+$set修改器
 		
 	     > db.info.update({name: "moon"},{$set: {age: 20}});
              > db.info.find();
