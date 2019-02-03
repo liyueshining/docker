@@ -1,0 +1,82 @@
+一、安装python3.6
+
+2.下载Python3
+　　https://www.python.org/downloads/
+
+1
+# wget https://www.python.org/ftp/python/3.6.1/Python-3.6.1.tgz
+3.安装python3
+
+　　我个人习惯安装在/usr/local/python3（具体安装位置看个人喜好）
+　　创建目录：
+# mkdir -p /usr/local/python3
+　　解压下载好的Python-3.x.x.tgz包(具体包名因你下载的Python具体版本不不同⽽而不不同，如：我下载的是Python3.6.1.那我这里就是Python-3.6.1.tgz)
+
+# tar -zxvf Python-3.6.1.tgz
+4.进入解压后的目录，编译安装。
+
+# cd Python-3.6.1
+# ./configure --prefix=/usr/local/python3
+　　
+# make
+make
+　　
+# make install
+make install    或者 make && make install
+
+5.建立python3的软链
+# ln -s /usr/local/python3/bin/python3 /usr/bin/python3
+
+6.并将/usr/local/python3/bin加入PATH
+# vim ~/.bash_profile
+# .bash_profile
+# Get the aliases and functions
+if [ -f ~/.bashrc ]; then
+. ~/.bashrc
+fi
+# User specific environment and startup programs
+PATH=$PATH:$HOME/bin:/usr/local/python3/bin
+export PATH
+
+按ESC，输入:wq回车退出。
+
+修改完记得执行下面的命令，让上一步的修改生效：
+# source ~/.bash_profile
+
+检查Python3及pip3是否正常可用：
+# python3 -V
+Python 3.6.1
+
+# pip3 -V
+pip 9.0.1 from /usr/local/python3/lib/python3.6/site-packages (python 3.6)
+
+7.不行的话在创建一下pip3的软链接(我也不清楚这一步有什么用)
+# ln -s /usr/local/python3/bin/pip3 /usr/bin/pip3
+
+
+bzip2 安装包地址
+
+https://sourceforge.net/projects/bzip2/
+
+tar -zxf  bzip2-1.0.6.tar.gz 
+
+cd bzip2-1.0.6  
+
+make -f  Makefile-libbz2_so 
+
+make && make install
+
+
+
+如果缺少 bz2  需要安装完bz2之后 再安装一遍pythons3.
+
+
+遇到的问题。由于改环境之前是安装的python2，且yum也是基于python2的，装了python3之后 yum就异常了，需要需要yum脚本里 使用的python版本号
+如：
+#修改yum文件
+vi /usr/bin/yum
+将文件头部的
+#!/usr/bin/python
+改为如下内容
+#!/usr/bin/python2
+整个升级过程完成了。
