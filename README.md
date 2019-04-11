@@ -87,7 +87,8 @@
      
              docker push rd-server:5000/imageName
            
- 11. solutions to https errors
+ 11. solutions to https errors(ubuntu)
+Docker与Docker Registry交互默认使用https，然而此处搭建的Docker Registry只提供http服务，所以当和Registry私有仓库交互时会失败，为了解决这个问题需要在启动Docker时配置Registry不安全选项
      
      - modify Docker config file
             
@@ -96,6 +97,11 @@
      - add new line as follows, and add ip to no_proxy if necessary:
      
             DOCKER_OPTS="$DOCKER_OPTS --insecure-registry=104.131.173.242:5000"
+            
+     - centos
+            修改/usr/lib/systemd/system/docker.service
+            ExecStart=/usr/bin/dockerd --registry-mirror=http://xxxxxxxx.m.daocloud.io  --insecure-registry 192.168.232.25:5000
+           
      - restart Docker
      
             sudo service docker restart
