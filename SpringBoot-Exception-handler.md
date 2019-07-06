@@ -59,6 +59,10 @@ public class SampleController {
 ```
 
 上面的方式处理不了Filter中抛出的异常，需要在filter中自定义response的信息，如下：
+需要配合下面的注解
+@SpringBootApplication
+@ServletComponentScan
+
 ```
 @WebFilter(urlPatterns = "/*", filterName = "logRequestInfoFilter")
 public class LogRequestInfoFilter implements Filter
