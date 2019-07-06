@@ -33,7 +33,8 @@ public class CustomControllerAdvice
     //其他错误
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ErrorResult exception(Exception ex) {
+    public ErrorResult exception(Exception ex, HttpServeletRequest req) {
+        //can also get request info 
         return new ErrorResult(500, ex.getMessage());
     }
 
